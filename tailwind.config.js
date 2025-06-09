@@ -1,7 +1,7 @@
 module.exports = {
-  content: ["./src/**/*.{js,jsx}"], // 꼭 수정!
+  content: ["./src/**/*.{js,jsx}"],
   theme: {
     extend: {},
   },
   plugins: [],
-}
+};
