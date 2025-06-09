@@ -1,18 +1,18 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, Element } from 'react-scroll';
 import Sidebar from './components/Sidebar';
 import LoginModal from './components/LoginModal';
+import SignupModal from './components/SignupModal';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
+  const [signupOpen, setSignupOpen] = useState(false);
   const [url, setUrl] = useState('');
 
   return (
-    // 최상위 컨테이너에 단일 스크롤 사용
-    <div className="relative min-h-screen bg-white flex">
+    <div className="relative min-h-screen bg-gray-50 flex">
       {/* 사이드바 */}
       <Sidebar
         isOpen={sidebarOpen}
@@ -20,7 +20,7 @@ function App() {
         onLoginClick={() => setLoginOpen(true)}
       />
 
-      {/* ☰ 버튼 */}
+      {/* 토글 버튼 */}
       {!sidebarOpen && (
         <button
           className="fixed top-4 left-4 z-50 p-2 text-2xl bg-white rounded shadow-md"
@@ -30,63 +30,72 @@ function App() {
         </button>
       )}
 
-      {/* 메인 콘텐츠: overflow-y-auto 제거 */}
-      <div
-        className={`flex-1 transition-all duration-300 ${
-          sidebarOpen ? 'ml-64' : 'ml-0'
-        }`}
-      >
-        {/* 섹션 1: Hero */}
+      {/* 메인 콘텐츠 */}
+      <div className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'}`}>
+        {/* Hero 섹션 */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="relative pt-24 px-4 text-center min-h-screen"
+          className="relative flex flex-col items-center justify-center h-screen px-4 text-center"
         >
-          <h1 className="text-2xl font-bold mb-8">쉽고 빠르게, 요약 시작하기</h1>
+          <h1 className="text-xl font-medium mb-4 text-gray-800">
+            쉽고 빠르게, 요약 시작하기
+          </h1>
 
+          {/* 입력 카드 */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex justify-center"
+            className="flex justify-center w-full"
           >
-            <input
-              type="text"
-              placeholder="https://www.example.com"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              className="border p-3 w-full max-w-md rounded-l shadow"
-            />
-            <button
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 rounded-r"
-              onClick={() => alert(`요약 요청: ${url}`)}
-            >
-              요약하기
-            </button>
+            <div className="relative w-full max-w-xl bg-white rounded-2xl shadow-lg p-6">
+              <textarea
+                rows={2}
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                placeholder={`https://www.example.com\n- 링크를 넣어주세요!`}
+                className="w-full h-20 text-sm text-gray-600 placeholder-gray-300 bg-transparent resize-none focus:outline-none"
+              />
+
+              {/* 아이콘 */}
+              <div className="absolute bottom-4 left-4 flex space-x-3">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-gray-400 hover:text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m2 6H7a2 2 0 01-2-2V7a2 2 0 012-2h2.586a1 1 0 00.707-.293l.707-.707a1 1 0 011.414 0l.707.707A1 1 0 0013.414 5H16a2 2 0 012 2v9a2 2 0 01-2 2z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-gray-400 hover:text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 1v4m0 14v4m8-12a8 8 0 01-16 0M4 10a8 8 0 0116 0" />
+                </svg>
+              </div>
+
+              {/* 요약하기 버튼 */}
+              <button
+                className="absolute bottom-3 right-4 flex items-center space-x-1 bg-indigo-500 hover:bg-indigo-600 text-white text-sm px-4 py-1.5 rounded-full"
+                onClick={() => alert(`요약 요청: ${url}`)}
+              >
+                <span>요약하기</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </button>
+            </div>
           </motion.div>
 
-          {/* ↓ 화살표 (react-scroll) */}
+          {/* ↓ 화살표 */}
           <Link to="summary-section" smooth={true} duration={500}>
             <motion.div
               className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer"
               whileHover={{ scale: 1.1 }}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8 text-gray-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
             </motion.div>
           </Link>
         </motion.section>
 
-        {/* 섹션 2: 요약 소개 */}
+        {/* 요약 섹션 */}
         <Element name="summary-section">
           <motion.section
             initial={{ opacity: 0, y: 30 }}
@@ -103,7 +112,7 @@ function App() {
           </motion.section>
         </Element>
 
-        {/* 섹션 3: 마인드맵 소개 */}
+        {/* 마인드맵 섹션 */}
         <Element name="mindmap-section">
           <motion.section
             initial={{ opacity: 0, y: 30 }}
@@ -126,7 +135,26 @@ function App() {
       </div>
 
       {/* 로그인 모달 */}
-      {loginOpen && <LoginModal onClose={() => setLoginOpen(false)} />}
+      {loginOpen && (
+        <LoginModal
+          onClose={() => setLoginOpen(false)}
+          onSignupClick={() => {
+            setLoginOpen(false);
+            setSignupOpen(true);
+          }}
+        />
+      )}
+
+      {/* 회원가입 모달 */}
+      {signupOpen && (
+        <SignupModal
+          onClose={() => setSignupOpen(false)}
+          onLoginClick={() => {
+            setSignupOpen(false);
+            setLoginOpen(true);
+          }}
+        />
+      )}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
-export default function LoginModal({ onClose, onSignupClick }) {
+export default function SignupModal({ onClose, onLoginClick }) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -20,7 +20,7 @@ export default function LoginModal({ onClose, onSignupClick }) {
           ×
         </button>
 
-        <h2 className="text-2xl font-bold text-center mb-6">로그인</h2>
+        <h2 className="text-2xl font-bold text-center mb-6">회원가입</h2>
 
         <input
           type="email"
@@ -43,17 +43,17 @@ export default function LoginModal({ onClose, onSignupClick }) {
         </div>
 
         <button
-          className="w-full bg-blue-600 text-white font-semibold py-2 rounded mb-6 hover:bg-blue-700"
-          onClick={() => alert('로그인 클릭')}
+          className="w-full bg-green-600 text-white font-semibold py-2 rounded mb-6 hover:bg-green-700"
+          onClick={() => alert('가입하기 클릭')}
         >
-          로그인
+          가입하기
         </button>
 
-        <div className="text-center text-sm text-gray-500 mb-4">또는 SNS로 로그인</div>
+        <div className="text-center text-sm text-gray-500 mb-4">또는 SNS로 회원가입</div>
         <div className="grid grid-cols-1 gap-3">
           {/* Google */}
           <button
-            onClick={() => alert('구글 로그인')}
+            onClick={() => alert('구글 회원가입')}
             className="flex items-center justify-center border rounded py-2 hover:bg-gray-50"
           >
             <img
@@ -61,12 +61,12 @@ export default function LoginModal({ onClose, onSignupClick }) {
               alt="Google"
               className="w-5 h-5 mr-2 object-contain"
             />
-            Google 계정으로 로그인
+            Google 계정으로 가입
           </button>
 
           {/* Apple */}
           <button
-            onClick={() => alert('애플 로그인')}
+            onClick={() => alert('애플 회원가입')}
             className="flex items-center justify-center border rounded py-2 hover:bg-gray-50"
           >
             <img
@@ -74,17 +74,17 @@ export default function LoginModal({ onClose, onSignupClick }) {
               alt="Apple"
               className="w-5 h-5 mr-2 object-contain"
             />
-            Apple 계정으로 로그인
+            Apple 계정으로 가입
           </button>
         </div>
 
         <div className="mt-6 text-center">
-          <span>계정이 없으신가요? </span>
+          <span>이미 계정이 있으신가요? </span>
           <button
-            onClick={onSignupClick}
+            onClick={onLoginClick}
             className="text-indigo-500 hover:underline"
           >
-            회원가입
+            로그인
           </button>
         </div>
       </motion.div>
